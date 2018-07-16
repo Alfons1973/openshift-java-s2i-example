@@ -11,6 +11,12 @@ RUN yum -y update; \
     yum install sudo -y;\ 
     yum clean all -y 
 
+LABEL io.k8s.description="The tomcat s2i binary image \
+          with universal support for popular component formats." \
+      io.k8s.display-name="Tomcat binary S2" \
+      io.openshift.expose-services="8080:8080" \
+      io.openshift.tags="builder,tomcat"
+
 ENV TOMCAT_MAJOR_VERSION 8 
 ENV TOMCAT_MINOR_VERSION 8.0.32 
 ENV CATALINA_HOME /tomcat 
@@ -33,11 +39,12 @@ RUN wget -q -e use_proxy=yes https://archive.apache.org/dist/tomcat/tomcat-8/v8.
 ENV JAVA_OPTS="-Dtuf.environment=DEV -Dtuf.appFiles.rootDirectory=/TempDirRoot" 
 
 
-RUN groupadd -r safe 
-RUN useradd  -r -g safe safe 
 RUN mkdir -p /tomcat/webapps /TempDirRoot
-RUN chown -R 1001:1001 /tomcat /TempDirRoot 
-RUN chmod -R 777 /tomcat /TempDirRoot 
+#RUN chown -R 1001:1001 /tomcat /TempDirRoot 
+#RUN chmod -R 777 /tomcat /TempDirRoot 
+
+RUN chgrp -R 0 /tomcat /TempDirRoot \
+  && chmod -R g+rwX /tomcat /TempDirRoot
 
 RUN cd /tomcat/webapps/; rm -rf ROOT docs examples host-manager manager 
 
