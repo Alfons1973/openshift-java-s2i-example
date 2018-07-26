@@ -1,3 +1,4 @@
-cp -Rf /tmp/src/. $CATALINA_HOME/webapps
+cp -Rf /tmp/src/*.war $CATALINA_HOME/webapps
+cp -Rf /tmp/src/*.jar $CATALINA_HOME/lib
 chown -R 1001:1001 $CATALINA_HOME/webapps
 ls -lrt $CATALINA_HOME/webapps
