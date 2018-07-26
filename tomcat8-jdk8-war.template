@@ -1,7 +1,7 @@
 {
   "apiVersion": "v1",
   "kind": "Template",
-  "metadata": {
+  "metadata" : {
     "name": "tomcat8-jdk8-war"
   },
   "parameters": [
