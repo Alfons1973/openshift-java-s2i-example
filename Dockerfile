@@ -40,13 +40,13 @@ ENV JAVA_OPTS="-Dtuf.environment=DEV -Dtuf.appFiles.rootDirectory=/TempDirRoot"
 
 
 RUN mkdir -p /tomcat/webapps /TempDirRoot
-#RUN chown -R 1001:1001 /tomcat /TempDirRoot 
-#RUN chmod -R 777 /tomcat /TempDirRoot 
+RUN chown -R 1001:1001 /tomcat /TempDirRoot 
+RUN chmod -R 777 /tomcat /TempDirRoot 
 
 RUN chgrp -R 0 /tomcat /TempDirRoot \
   && chmod -R g+rwX /tomcat /TempDirRoot
 
-RUN cd /tomcat/webapps/; rm -rf ROOT docs examples host-manager manager 
+#RUN cd /tomcat/webapps/; rm -rf ROOT docs examples host-manager manager 
 
 COPY ./.s2i/bin/ /usr/libexec/s2i
 
